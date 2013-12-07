@@ -1,0 +1,133 @@
+
+*{
+	padding: 0; margin: 0;
+}
+
+html{
+	direction: rtl;
+}
+
+body{
+	background-color: #A9A9A9;
+}
+
+a{
+	color: #05B8CC;
+}
+
+.wrapper{
+	background-color: #fff;
+	margin: auto auto;
+	width: 960px;
+}
+
+.header{
+	padding: 30px;
+}
+
+.featured{
+	background-color: #D9D9D9;
+	height: 400px; padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.featured .mobile{
+	width: 225px; padding-right: 110px;
+	padding-left: 40px; float: right;
+}
+
+.featured .text{
+	float: left; width: 530px;
+	padding-right: 50px; padding-top: 75px;
+	color: #595959;
+}
+
+.featured .text ul{
+	margin-top: 25px; margin-right: 10px;
+	margin-bottom: 25px;
+}
+
+.featured .text .not_yet{
+	margin-top: 4px;
+}
+
+.featured:after{
+	content: "."; display: block;
+	height: 0; clear: both;
+	visibility: hidden;
+}
+
+.details .screenshots{
+	padding: 20px; text-align: center;
+}
+
+.details .screenshots img{
+	padding: 4px;
+}
+
+.details .links{
+	margin-right: 156px;
+	margin-bottom: 30px;
+}
+
+.details .links .link{
+	display: block; width: 224px;
+	float: right; color: #000;
+	text-decoration: none;
+}
+
+.details .links .link .description{
+	margin-top: 4px;
+}
+
+.details .links:after{
+	content: "."; display: block;
+	height: 0; clear: both;
+	visibility: hidden;
+}
+
+.notes{
+	background-color: #FFC000;
+	height: 170px;
+}
+
+.notes .note{
+	width: 480px; float: right;
+}
+
+.notes .note .heading{
+	padding: 20px; float: right;
+}
+
+.notes .note .content{
+	padding: 20px; margin-top: 20px;
+	color: #fff;
+}
+
+.notes .note .content .twiiter_link{
+	display: block; margin-bottom: 10px;
+	color: #fff;
+}
+
+.notes .note .content .join{
+	display: inline-block; color: #666;
+	background-color: #fff; padding: 6px;
+	font-weight: bold; text-decoration: none;
+}
+
+.notes .note:after{
+	display: block; width: 224px;
+	float: right; color: #000;
+	text-decoration: none;
+}
+
+.notes:after{
+	display: block; width: 224px;
+	float: right; color: #000;
+	text-decoration: none;
+}
+
+.footer{
+	padding: 20px; text-align: center;
+	color: #666;
+}
