@@ -25,6 +25,16 @@ a{
 	padding: 30px;
 }
 
+.header .sharing{
+	float: left; margin-top: 10px;
+}
+
+.header:after{
+	content: "."; display: block;
+	height: 0; clear: both;
+	visibility: hidden;
+}
+
 .featured{
 	background-color: #D9D9D9;
 	height: 400px; padding-top: 50px;
@@ -152,7 +162,7 @@ a{
 /* mobile. */
 /*@media screen and (max-device-width: 480px){*/
 @media all and (max-width: 420px){
-	
+
 	.wrapper{
 		width: 320px;
 	}
@@ -257,5 +267,9 @@ a{
 	
 	.notes .note .mobile{
 		display: block;
+	}
+	
+	.notes .note img{
+		margin-right: 100px;
 	}
 }
