@@ -131,3 +131,131 @@ a{
 	padding: 20px; text-align: center;
 	color: #666;
 }
+
+/* hide mobile classes. */
+.mobile_download{
+	display: none;
+}
+
+.mobile_features{
+	display: none;
+}
+
+.details .links .link .mobile{
+	display: none;
+}
+
+.notes .note .mobile{
+	display: none;
+}
+
+/* mobile. */
+/*@media screen and (max-device-width: 480px){*/
+@media all and (max-width: 420px){
+	
+	.wrapper{
+		width: 320px;
+	}
+	
+	.header{
+		padding: 20px;
+	}
+	
+	.featured{
+		padding: 40px; text-align: center;
+		height: auto;
+	}
+	
+	.featured .mobile{
+		padding: 0px; float: none;
+	}
+	
+	.mobile_download{
+		padding: 8px; display: block;
+	}
+	
+	.mobile_download .not_yet{
+		margin-top: 4px;
+	}
+	
+	.featured .text{
+		display: none;
+	}
+
+	.mobile_features{
+		display: block; padding: 10px;
+	}
+	
+	.mobile_features center{
+		margin-bottom: 6px;
+	}
+	
+	.mobile_features ul{
+		margin-right: 20px;
+	}
+	
+	.details .screenshots{
+		display: none;
+	}
+	
+	.details .links{
+		margin: 0; padding: 10px;
+	}
+	
+	.details .links .link{
+		width: 300px; margin-bottom: 10px;
+	}
+	
+	.details .links .link .mobile{
+		display: block; padding: 8px;
+		float: right;
+	}
+	
+	.details .links .link .description{
+		font-size: 15px; color: #fff;
+		padding-top: 10px; height: 40px;
+	}
+	
+	.trello{
+		background-color: #31859C;
+	}
+
+	.github{
+		background-color: #A6A6A6;
+	}
+	
+	.twitter{
+		background-color: #00B0F0;
+	}
+	
+	.details .links .link .desktop{
+		display: none;
+	}
+	
+	.details .links .link:after{
+		display: block; width: 224px;
+		float: right; color: #000;
+		text-decoration: none;
+	}
+	
+	.notes{
+		height: auto;
+	}
+	
+	.notes .note{
+		float: none; width: auto;
+		text-align: center; padding: 20px;
+	}
+
+	.notes .note .heading, .notes .note .content{
+		float: none; padding: 0;
+	}
+	
+	.notes .note .desktop{
+		display: none;
+	}
+	
+	.notes .note .mobile{
+		display: block;
+	}
+}
