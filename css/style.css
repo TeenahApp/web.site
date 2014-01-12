@@ -1,0 +1,275 @@
+
+*{
+	padding: 0; margin: 0;
+}
+
+html{
+	direction: rtl;
+}
+
+body{
+	background-color: #A9A9A9;
+}
+
+a{
+	color: #05B8CC;
+}
+
+.wrapper{
+	background-color: #fff;
+	margin: auto auto;
+	width: 960px;
+}
+
+.header{
+	padding: 30px;
+}
+
+.header .sharing{
+	float: left; margin-top: 10px;
+}
+
+.header:after{
+	content: "."; display: block;
+	height: 0; clear: both;
+	visibility: hidden;
+}
+
+.featured{
+	background-color: #D9D9D9;
+	height: 400px; padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.featured .mobile{
+	width: 225px; padding-right: 110px;
+	padding-left: 40px; float: right;
+}
+
+.featured .text{
+	float: left; width: 530px;
+	padding-right: 50px; padding-top: 75px;
+	color: #595959;
+}
+
+.featured .text ul{
+	margin-top: 25px; margin-right: 10px;
+	margin-bottom: 25px;
+}
+
+.featured .text .not_yet{
+	margin-top: 4px;
+}
+
+.featured:after{
+	content: "."; display: block;
+	height: 0; clear: both;
+	visibility: hidden;
+}
+
+.details .screenshots{
+	padding: 20px; text-align: center;
+}
+
+.details .screenshots img{
+	padding: 4px;
+}
+
+.details .links{
+	margin-right: 156px;
+	margin-bottom: 30px;
+}
+
+.details .links .link{
+	display: block; width: 224px;
+	float: right; color: #000;
+	text-decoration: none;
+}
+
+.details .links .link .description{
+	margin-top: 4px;
+}
+
+.details .links:after{
+	content: "."; display: block;
+	height: 0; clear: both;
+	visibility: hidden;
+}
+
+.notes{
+	background-color: #FFC000;
+	height: 170px;
+}
+
+.notes .note{
+	width: 480px; float: right;
+}
+
+.notes .note .heading{
+	padding: 20px; float: right;
+}
+
+.notes .note .content{
+	padding: 20px; margin-top: 20px;
+	color: #fff;
+}
+
+.notes .note .content .twiiter_link{
+	display: block; margin-bottom: 10px;
+	color: #fff;
+}
+
+.notes .note .content .join{
+	display: inline-block; color: #666;
+	background-color: #fff; padding: 6px;
+	font-weight: bold; text-decoration: none;
+}
+
+.notes .note:after{
+	display: block; width: 224px;
+	float: right; color: #000;
+	text-decoration: none;
+}
+
+.notes:after{
+	display: block; width: 224px;
+	float: right; color: #000;
+	text-decoration: none;
+}
+
+.footer{
+	padding: 20px; text-align: center;
+	color: #666;
+}
+
+/* hide mobile classes. */
+.mobile_download{
+	display: none;
+}
+
+.mobile_features{
+	display: none;
+}
+
+.details .links .link .mobile{
+	display: none;
+}
+
+.notes .note .mobile{
+	display: none;
+}
+
+/* mobile. */
+/*@media screen and (max-device-width: 480px){*/
+@media all and (max-width: 420px){
+
+	.wrapper{
+		width: 320px;
+	}
+	
+	.header{
+		padding: 20px;
+	}
+	
+	.featured{
+		padding: 40px; text-align: center;
+		height: auto;
+	}
+	
+	.featured .mobile{
+		padding: 0px; float: none;
+	}
+	
+	.mobile_download{
+		padding: 8px; display: block;
+	}
+	
+	.mobile_download .not_yet{
+		margin-top: 4px;
+	}
+	
+	.featured .text{
+		display: none;
+	}
+
+	.mobile_features{
+		display: block; padding: 10px;
+	}
+	
+	.mobile_features center{
+		margin-bottom: 6px;
+	}
+	
+	.mobile_features ul{
+		margin-right: 20px;
+	}
+	
+	.details .screenshots{
+		display: none;
+	}
+	
+	.details .links{
+		margin: 0; padding: 10px;
+	}
+	
+	.details .links .link{
+		width: 300px; margin-bottom: 10px;
+	}
+	
+	.details .links .link .mobile{
+		display: block; padding: 8px;
+		float: right;
+	}
+	
+	.details .links .link .description{
+		font-size: 15px; color: #fff;
+		padding-top: 10px; height: 40px;
+	}
+	
+	.trello{
+		background-color: #31859C;
+	}
+
+	.github{
+		background-color: #A6A6A6;
+	}
+	
+	.twitter{
+		background-color: #00B0F0;
+	}
+	
+	.details .links .link .desktop{
+		display: none;
+	}
+	
+	.details .links .link:after{
+		display: block; width: 224px;
+		float: right; color: #000;
+		text-decoration: none;
+	}
+	
+	.notes{
+		height: auto;
+	}
+	
+	.notes .note{
+		float: none; width: auto;
+		text-align: center; padding: 20px;
+	}
+
+	.notes .note .heading, .notes .note .content{
+		float: none; padding: 0;
+	}
+	
+	.notes .note .desktop{
+		display: none;
+	}
+	
+	.notes .note .mobile{
+		display: block;
+	}
+	
+	.notes .note img{
+		margin-right: 100px;
+	}
+}
