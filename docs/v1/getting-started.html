@@ -62,32 +62,156 @@
         		<h4 class="text-muted">الشروع في استخدام تينه</h4>
 
         		<p class="lead">
+                    الواجهة البرمجيّة لتينه تُعتبر واجهة <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> حيث تتأثر بالعبارة (الفعل) المستخدم للطلب، مثل <code>GET</code>, <code>POST</code>, <code>DELETE</code>, و
         			لاستخدام تينه على الوجه الأمثل؛ ينبغي أن يُفهم آليّة جريان الطلب، حيث ينبغي في البداية تسجيل تطبيقك
         			لدى تينه، لتتمكن بذلك الحصول على مفتاحين يمكّنانك من استدعاء و الاستفادة من وظائف وحدات تينه. 
         			يُمكنك تسجيل تطبيقك من خلال ارسال الطلب التالي إلى متصفحك، مع ملاحظة استبدال عبارة <code>{email}</code> 
         			ببريدك الإلكترونيّ، و كذلك أن الردّ على هذا الطلب سيظهر مرّة واحدة فقط، 
         			ثم لن تتمكن من اظهار و قراءة المفتاحين من جديد:
-        		
-        		<div class="breadcrumb" style="direction: ltr;">
-        			<span class="label label-success">GET</span>
-        			<code>https://teenah-app.com/api/public/index.php/apps/{email}</code>
-        		</div>
+        		</p>  
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td><pre class="api_url">{{teenah_api_url}}/apps/make/{email}</pre></td>
+    </tr>
+</table>
         
-        		</p>
+        		<p class="lead">
+        			بعد ارسال الطلب، سيكون الرد على ثلاث حالات، إمّا أن يُقبل البريد و يُضاف إلى قائمة تطبيقات تينه و كود الردّ سيكون <code>200</code>، أو في حال كون البريد قد أُضيف مسبقاً، فإن خطأ <code>403</code> سيظهر، أو سيظهر خطأ <code>400</code> في حال أُدخل البريد بطريقة غير صحيحة:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الرد</th>
+    </tr>
+
+    <!-- 200 -->
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+{"
+    email":"teenah.app@gmail.com",
+    "app_key":"EfmDF4BFFZR4soOs4mVhpB6MinUQ7G",
+    "app_secret":"$2y$10$xS8AsXVqmyiF5O36mqq.i.kRoKP7.ehbpbzbB6B4e9HOPMYLGZ2tm",
+    "updated_at":"2014-01-29 14:38:37",
+    "created_at":"2014-01-29 14:38:37",
+    "id":7
+}</pre>
+        </td>
+    </tr>
+
+    <!-- 403 -->
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message":"Not authorized to access this resource."
+}</pre>
+        </td>
+    </tr>
+
+    <!-- 400 -->
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message":"Bad request."
+}</pre>
+        </td>
+    </tr>
+
+</table>
+                <p class="lead">
+        		إذا تمّ توليد المفتاحين و لاستخدامهما في تطبيقك، فاحفظهما في مكانٍ آمنٍ لديك، و هم في المثال السابق محتويات المتغيرين <code>app_key</code> و <code>app_secret</code>، بدون هذين المفتاحين، لن تتمكّن من استدعاء أي وظيفة في تينه، و يظهر لك الخطأ <code>401</code> موضحاً عدم صحّة المفتاحين.
+            </p>
+
+            <h4 class="text-muted">ماذا بعد الحصول على المفتاحين؟</h4>
+        		
+            <p class="lead">
+                يُمكنك الآن استدعاء وظائف تينه، مثل إضافة علاقات الفرد، و المناسبات، و غيرها، شريطة أن تضمّن رؤوس إضافيّة للطلب <code>headers</code>، ليتمكن تينه من التعرّف على تطبيقك، هذه الرؤوس هي نفسها المفاتيح الخاصّة بتطبيقك:
+            </p>
+
+            <table class="table table-bordered api_table">
+                <tr>
+                    <th>الرأس</th>
+                    <th>القيمة</th>
+                </tr>
+                <tr>
+                    <td>X-App-Key</td>
+                    <td>EfmDF4BFFZR4soOs4mVhpB6MinUQ7G</td>
+                </tr>
+                <tr>
+                    <td>X-App-Secret</td>
+                    <td>$2y$10$xS8AsXVqmyiF5O36mqq.i.kRoKP7.ehbpbzbB6B4e9HOPMYLGZ2tm</td>
+                </tr>
+            </table>
+
+            <h4 class="text-muted">أكواد الردّ القادمة من الخادم</h4>
+
+            <p class="lead">
+                في الجدول المُرفق، شرحاً مفصّلاً لأكواد الرادّ التي يُرسلها الخادم (تينه)، لأهميّتها في فهم الذي حدث فعليّاً في الخادم، كقبول الطلب من عدمه:
+            </p>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>الكود</th>
+                    <th>المعنى</th>
+                </tr>
+                <tr>
+                    <td><span class="label label-success">200</span></td>
+                    <td>تم إتمام الطلب بنجاح.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-success">201</span></td>
+                    <td>تم إنشاء العنصر (العناصر) المطلوبة بنجاح.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-info">204</span></td>
+                    <td>تم إتمام الطلب بنجاح، لكن لم يتم الرد بمحتوى.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-danger">400</span></td>
+                    <td>فشل الطلب بسبب نقص في الطلب أو خطأ في التحقّق.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-danger">401</span></td>
+                    <td>مفتاحي الواجهة البرمجيّة للتطبيق (API) إمّا مفقودين أو غير صحيحين.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-danger">403</span></td>
+                    <td>غير مرخّص لك استخدام هذه الوظيفة أو العنصر.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-danger">404</span></td>
+                    <td>لم يتم العثور على العنصر المطلوب.</td>
+                </tr>
+                <tr>
+                    <td><span class="label label-default">500</span></td>
+                    <td>خطأ داخلي من الخادم.</td>
+                </tr>
+            </table>
+
         	</div>
         	
         	<div class="col-lg-3">
         		<div class="list-group">
-        			<a href="getting-started.html" class="list-group-item active">الشروع في الاستخدام</a>
-        			<a href="getting-started.html" class="list-group-item">المستخدمون</a>
-        			<a href="getting-started.html" class="list-group-item">الأفراد</a>
-        			<a href="getting-started.html" class="list-group-item">الدوائر</a>
-        			<a href="getting-started.html" class="list-group-item">المناسبات</a>
-        			<a href="getting-started.html" class="list-group-item">الوسائط المتعدّدة</a>
-        			<a href="getting-started.html" class="list-group-item">الرسائل</a>
-        			<a href="getting-started.html" class="list-group-item">الشبكات الاجتماعيّة</a>
-        			<a href="getting-started.html" class="list-group-item">الوكلاء</a>
-        			<a href="getting-started.html" class="list-group-item">الإكمال التلقائي</a>
+        			<a href="#" class="list-group-item active">الشروع في الاستخدام</a>
+        			<a href="users.html" class="list-group-item">المستخدمون</a>
+        			<a href="members.html" class="list-group-item">الأفراد</a>
+        			<a href="circles.html" class="list-group-item">الدوائر</a>
+        			<a href="events.html" class="list-group-item">المناسبات</a>
+        			<a href="medias.html" class="list-group-item">الوسائط المتعدّدة</a>
+        			<a href="messages.html" class="list-group-item">الرسائل</a>
+        			<a href="social_medias.html" class="list-group-item">الشبكات الاجتماعيّة</a>
+        			<a href="trustees.html" class="list-group-item">الوكلاء</a>
+        			<a href="auto_completes.html" class="list-group-item">الإكمال التلقائي</a>
         		</div>
         	</div>
         	
@@ -121,6 +245,7 @@
     <!-- JavaScript -->
     <script src="../../js/jquery-1.10.2.js"></script>
     <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/teenahapp.js"></script>
     
     <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

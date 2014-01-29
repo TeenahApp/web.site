@@ -121,6 +121,7 @@ pre,
 samp {
   font-family: monospace, serif;
   font-size: 1em;
+  /*font-weight: normal;*/
 }
 
 pre {
@@ -746,7 +747,7 @@ code {
   padding: 2px 4px;
   font-size: 90%;
   color: #c7254e;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   background-color: #f9f2f4;
   border-radius: 4px;
 }
@@ -757,7 +758,8 @@ pre {
   margin: 0 0 10px;
   font-size: 13px;
   line-height: 1.428571429;
-  color: #333333;
+  /*color: #333333;*/
+  color: #C7254E;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f5f5f5;
@@ -769,7 +771,7 @@ pre code {
   padding: 0;
   font-size: inherit;
   color: inherit;
-  white-space: pre-wrap;
+  /*white-space: pre-wrap;*/
   background-color: transparent;
   border: 0;
 }
