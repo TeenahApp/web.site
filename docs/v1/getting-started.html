@@ -62,7 +62,7 @@
         		<h4 class="text-muted">الشروع في استخدام تينه</h4>
 
         		<p class="lead">
-                    الواجهة البرمجيّة لتينه تُعتبر واجهة <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> حيث تتأثر بالعبارة (الفعل) المستخدم للطلب، مثل <code>GET</code>, <code>POST</code>, <code>DELETE</code>, و
+                    الواجهة البرمجيّة لتينه تُعتبر واجهة <code><a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a></code> حيث تتأثر بالعبارة (الفعل) المستخدم للطلب، مثل <code>GET</code>, <code>POST</code>, <code>DELETE</code>, و
         			لاستخدام تينه على الوجه الأمثل؛ ينبغي أن يُفهم آليّة جريان الطلب، حيث ينبغي في البداية تسجيل تطبيقك
         			لدى تينه، لتتمكن بذلك الحصول على مفتاحين يمكّنانك من استدعاء و الاستفادة من وظائف وحدات تينه. 
         			يُمكنك تسجيل تطبيقك من خلال ارسال الطلب التالي إلى متصفحك، مع ملاحظة استبدال عبارة <code>{email}</code> 
@@ -86,7 +86,7 @@
 
 <table class="table table-bordered api_table">
     <tr>
-        <th colspan="2">الرد</th>
+        <th colspan="2">الردود</th>
     </tr>
 
     <!-- 200 -->
@@ -94,14 +94,26 @@
         <td><span class="label label-success">200</span></td>
         <td>
 <pre class="api_url">
-{"
-    email":"teenah.app@gmail.com",
+{
+    "email":"teenah.app@gmail.com",
     "app_key":"EfmDF4BFFZR4soOs4mVhpB6MinUQ7G",
     "app_secret":"$2y$10$xS8AsXVqmyiF5O36mqq.i.kRoKP7.ehbpbzbB6B4e9HOPMYLGZ2tm",
     "updated_at":"2014-01-29 14:38:37",
     "created_at":"2014-01-29 14:38:37",
     "id":7
 }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{email}</code> البريد الإلكترونيّ المسجّل للتطبيق.</li>
+                <li><code>{app_key}</code> المفتاح الخاص بالتطبيق: عبارة عن 30 حرف عشوائي و أرقام صغيرة و كبيرة.</li>
+                <li><code>{app_secret}</code> المفتاح السرّي الخاصّ بالتطبيق، يتكون من 60 حرف ما بين حروف صغيرة و كبيرة و أرقام و رموز.</li>
+                <li><code>{updated_at}</code> وقت و تاريخ آخر تحديث لسجّل التطبيق.</li>
+                <li><code>{created_at}</code> وقت و تاريخ إنشاء هذا التطبيق.</li>
+                <li><code>{id}</code> رقم التعريف الخاصّ بالتطبيق.</li>
+            </ul>
         </td>
     </tr>
 
@@ -111,8 +123,17 @@
         <td>
 <pre class="api_url">
 {
-    "message":"Not authorized to access this resource."
+    "message": "Not authorized to access this resource."
 }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
         </td>
     </tr>
 
@@ -122,8 +143,17 @@
         <td>
 <pre class="api_url">
 {
-    "message":"Bad request."
+    "message": "Bad request."
 }</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
         </td>
     </tr>
 
@@ -156,7 +186,7 @@
             <h4 class="text-muted">أكواد الردّ القادمة من الخادم</h4>
 
             <p class="lead">
-                في الجدول المُرفق، شرحاً مفصّلاً لأكواد الرادّ التي يُرسلها الخادم (تينه)، لأهميّتها في فهم الذي حدث فعليّاً في الخادم، كقبول الطلب من عدمه:
+                في الجدول المُرفق، شرحاً مفصّلاً لأكواد الردّ التي يُرسلها الخادم (تينه)، لأهميّتها في فهم الذي حدث فعليّاً في الخادم، كقبول الطلب من عدمه:
             </p>
 
             <table class="table table-bordered">
@@ -197,6 +227,10 @@
                     <td>خطأ داخلي من الخادم.</td>
                 </tr>
             </table>
+
+            <p class="lead">
+                انتقل تكرّماً إلى صفحة <a href="users.html">المستخدمين</a> للتعرّف على آلية دخول المستخدم للحصول على وصول كامل لوظائف النظام المُناطة بالفرد المسجّل للدخول.
+            </p>
 
         	</div>
         	

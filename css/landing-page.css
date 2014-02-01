@@ -156,3 +156,7 @@ p.copyright {
 .api_table{
 	direction: ltr;
 }
+
+.rtl{
+	direction: rtl
+}
