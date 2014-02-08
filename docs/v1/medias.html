@@ -45,7 +45,6 @@
             </div>
             <!-- /.navbar-collapse -->
         </div>
-
         <!-- /.container -->
     </nav>
 
@@ -59,11 +58,202 @@
         	
         	<div class="col-lg-9">
         	
-        		<h4 class="text-muted">الدوائر: المناسبات</h4>
+        		<h4 class="text-muted">الوسائط المتعدّدة: مفاهيم أساسيّة</h4>
 
-                GET medias/{id}/like
-                POST medias/{id}/comment
-                GET medias/{media_id}/comments/{comment_id}/like
+                <p class="lead">
+                    يُتيح تطبيق تينه مشاركة الوسائط المتعدّدة (الصور وَ الفيديو و الصوت) فيما بين الأفراد، كما يُتيح للأفراد الإعجاب بهذه الوسائط و كذلك التعليق عليها، و هذه الصفحة خُصّصت لشرح هذه الوظائف بإسهاب.
+                </p>
+
+                <h4 class="text-muted">الإعجاب بأحد الوسائط المتعدّدة</h4>
+                
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ إبداء إعجابه بأحد الوسائط التي تمّ مشاركتها معه من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+               <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/medias/{id}/like</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الوسائط المتعدّدة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">التعليق على أحد الوسائط المتعدّدة</h4>
+
+<p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يعلّق على أيٍّ من الوسائط المتعدّدة التي يمكنه الوصول إليها من خلال إرسال طلب <code>POST</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/medias/{id}/comment</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code>  (مطلوب) رقم أو معرّف الوسائط المتعدّدة.</li>
+                <li><code>{comment}</code> (مطلوب) (في الرؤوس) نص التعليق.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">الإعجاب بتعليق على الوسائط المتعدّدة</h4>
+
+<p class="lead">
+                    كما يُمكن للمستخدم الحاليّ الإعجاب بتعليق فردٍ من الأفراد على أيٍّ من الوسائط المتعدّدة من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/medias/{media_id}/comments/{comment_id}/like</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{member_id}</code> (مطلوب) (في الرابط) رقم أو معرّف الفرد المُراد.</li>
+                <li><code>{comment_id}</code> (مطلوب) (في الرابط) رقم أو معرّف التعليق.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
         	</div>
         	
