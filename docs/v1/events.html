@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon" />
+
+    <title>تطبيق تينه - الواجهة البرمجيّة للتطبيق (API)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom Google Web Font -->
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="../../css/landing-page.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+           	   <a class="navbar-brand" href="../../index.html">تطبيق تينه <span class="badge">تجريبي</span></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../about.html">نبذة تعريفيّة</a></li>
+                    <li><a href="#">الواجهة البرمجيّة للتطبيق (API)</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+
+        <!-- /.container -->
+    </nav>
+
+    <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+          <h3>الواجهة البرمجيّة للتطبيق (API)</h3>
+        </div>
+        
+        <div class="row">
+        	
+        	<div class="col-lg-9">
+        	
+        		<h4 class="text-muted">الدوائر: المناسبات</h4>
+
+                POST events
+                GET events/{id}
+                PUT events/{id}
+                DELETE events/{id}
+                PUT events/{id}/medias
+                PUT events/{id}/decision/{decision}
+                GET events/{id}/decision
+                GET events/{id}/like
+                POST events/{id}/comment
+                GET events/{event_id}/comments/{comment_id}/like
+
+        	</div>
+        	
+        	<div class="col-lg-3">
+        		<div class="list-group">
+        			<a href="getting-started.html" class="list-group-item">الشروع في الاستخدام</a>
+        			<a href="users.html" class="list-group-item">المستخدمون</a>
+        			<a href="members.html" class="list-group-item">الأفراد</a>
+        			<a href="circles.html" class="list-group-item">الدوائر</a>
+        			<a href="#" class="list-group-item active">المناسبات</a>
+        			<a href="medias.html" class="list-group-item">الوسائط المتعدّدة</a>
+        			<a href="messages.html" class="list-group-item">الرسائل</a>
+        			<a href="social_medias.html" class="list-group-item">الشبكات الاجتماعيّة</a>
+        			<a href="trustees.html" class="list-group-item">الوكلاء</a>
+        			<a href="auto_completes.html" class="list-group-item">الإكمال التلقائي</a>
+        		</div>
+        	</div>
+        	
+        </div>
+        
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="../../index.html">الأولى</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="../../about.html">نبذة تعريفيّة</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#">الواجهة البرمجيّة للتطبيق (API)</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">
+                    تينه - هذا المشروع مُرخّص تحت
+                   <a href="http://opensource.org/licenses/MIT">رخصة MIT</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/jquery-1.10.2.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/teenahapp.js"></script>
+
+</body>
+
+</html>
