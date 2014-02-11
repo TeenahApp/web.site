@@ -61,29 +61,747 @@
         	
         		<h4 class="text-muted">الدوائر: مفاهيم أساسيّة</h4>
 
+                <p class="lead">
+                    الدوائر في تينه وُجدت لتجمع فردين أو أكثر في نفس المكان، بحيث يُمكنهم إضافة مناسبات تربطهم، أو إرسال الرسائل فيما بينهم (المحادثة)، و غيرها من النشاطات. الدوائر يُمكن أن تكون دوائر صغيرة بحيث تضمّ أفراد الأسرة الواحدة الصغيرة مثل الأب و الأم و الأبناء، و يُمكن أن تكون دائرة كبيرة تضمّ أفراد العائلة الكبيرة.
+                </p>
+
                 <h4 class="text-muted">عرض و جلب الدوائر</h4>
-                GET circles
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يجلب الدوائر التي يُعتبر فرداً فيها، و ذلك من خلال إرسال طلب <code>GET</code> إلى الرابط التالي، علماً أن تينه سيحاول ضمّ الفرد الحالي إلى دائرة مناسبة إذا لم يكن ضمن أيّ دائرة مًسبقة:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles</pre>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و سيردّ الخادم بمصفوفة من الدوائر التي يُعتبر المستخدم الحاليّ فرداً فيها، و قد تكون المصفوفة فارغة من الدوائر:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردّ</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+[
+    {
+        "id": "1",
+        "name": "I5rEvWwxL9RlXIbV8ZZ5",
+        "members_count": "2",
+        "active": "1",
+        "created_by": "2",
+        "created_at": "2014-02-08 10:20:13",
+        "updated_at": "2014-02-08 10:20:13"
+    }
+]
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> رقم أو معرّف الدائرة.</li>
+                <li><code>{name}</code> اسم الدائرة (اسم عشوائي مبدئياً).</li>
+                <li><code>{members_count}</code> عدد أفراد الدائرة.</li>
+                <li><code>{active}</code> حالة الدائرة من حيث الفعاليّة، فعّالة <code>1</code> أو غير فعّالة <code>0</code>.</li>
+                <li><code>{created_by}</code> رقم أو معرّف الفرد الذي قام بإنشاء هذه الدائرة.</li>
+                <li><code>{created_at}</code> تاريخ و وقت إنشاء هذه الدائرة.</li>
+                <li><code>{updated_at}</code> تاريخ و وقت آخر تحديث لهذه الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">إضافة دائرة</h4>
-                POST circles
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ إضافة دائرة شريطةَ أن تضمّ فردين أو أكثر و ذلك من خلال إرسال طلب <code>POST</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{name}</code> (مطلوب) اسم الدائرة المُراد إنشاؤها.</li>
+                <li><code>{members}</code> (مطلوب) أفراد الدائرة المُراد إضافتهم، يكونون على هيئة مصفوفة مثلاً: <code>[1,4]</code>.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّأ <code>201</code> أو <code>400</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">201</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "The circle has been created successfully.",
+    "id": 2,
+    "name": "Hello World"
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الإتمام العائدة من الخادم.</li>
+                <li><code>{id}</code> رقم أو معرّف الدائرة.</li>
+                <li><code>{name}</code> اسم الدائرة المُدخل.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">عرض أفراد الدائرة</h4>
-                GET circles/{id}/members
 
+                <p class="lead">
+                    يُمكن للمستخدم عرض أفراد دائرةٍ ما يمكنه الوصول إليها من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles/{id}/members</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: مصفوفة من الأفراد <code>200</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+[
+    {
+        "id": "2",
+        "gender": "male",
+        "name": "حسام",
+        "fullname": null,
+        "nickname": null,
+        "dob": null,
+        "pob": null,
+        "dod": null,
+        "pod": null,
+        "age": "0",
+        "is_alive": "1",
+        "photo": "https://teenahapp.s3.amazonaws.com/hesH4Olco.png",
+        "location": null,
+        "mobile": "96655*******",
+        "email": null,
+        "home_phone": null,
+        "work_phone": null,
+        "marital_status": "",
+        "blood_type": null,
+        "is_root": "0",
+        "tribe_id": null,
+        "created_at": "2014-02-02 17:56:34",
+        "updated_at": "2014-02-05 12:07:30"
+    },
+    {
+        "id": "3",
+        "gender": "male",
+        "name": "علي",
+        "fullname": null,
+        "nickname": null,
+        "dob": null,
+        "pob": null,
+        "dod": null,
+        "pod": null,
+        "age": "0",
+        "is_alive": "1",
+        "photo": null,
+        "location": null,
+        "mobile": "96654*******",
+        "email": null,
+        "home_phone": null,
+        "work_phone": null,
+        "marital_status": "single",
+        "blood_type": null,
+        "is_root": "0",
+        "tribe_id": null,
+        "created_at": "2014-02-05 13:13:17",
+        "updated_at": "2014-02-05 13:13:17"
+    }
+]
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> رقم أو معرّف المستخدم الحاليّ.</li>
+                <li><code>{gender}</code> جنس الفرد سواءً ذكراً أو أنثى: male أوَ female.</li>
+                <li><code>{name}</code> اسم الفرد المرتبط بالمستخدم.</li>
+                <li><code>{fullname}</code> الاسم الكامل للفرد المرتبط بالمستخدم.</li>
+                <li><code>{nickname}</code> رسالة الخطأ التي يتم استقبالها من الخادم.</li>
+                <li><code>{dob}</code> تاريخ ميلاد الفرد بالصياغة YYYYY-mm-dd.</li>
+                <li><code>{pob}</code> مكان الميلاد للفرد المرتبط بالمستخدم.</li>
+                <li><code>{dod}</code> تاريخ وفاة (لا سمح الله) الفرد بالصياغة YYYYY-mm-dd.</li>
+                <li><code>{pod}</code> مكان الوفاة (لا سمح الله) للفرد المرتبط بالمستخدم.</li>
+                <li><code>{age}</code> عمر الفرد بدءً من الصفر.</li>
+                <li><code>{is_alive}</code> حالة نبض الفرد، حيّ يرزق أو أنّه متوفّى، 1 أو 0.</li>
+                <li><code>{photo}</code> رابط الصورة الشخصيّة للفرد (إن وُجدت).</li>
+                <li><code>{location}</code> مكان تواجد الفرد إن أحبب مشاركته.</li>
+                <li><code>{mobile}</code> رقم جوّال الفرد المرتبط بالمستخدم.</li>
+                <li><code>{email}</code> بريد الفرد الإلكترونيّ.</li>
+                <li><code>{home_phone}</code> رقم هاتف المنزل للفرد (إن وُجد و إن أحبب مشاركته).</li>
+                <li><code>{work_phone}</code> رقم هاتف العمل للفرد (إن وُجد و إن أحبب مشاركته).</li>
+                <li><code>{marital_status}</code> الحالة الاجتماعيّة للفرد، أعزب (single)، متزوّج (married)، أرملة (widow) للأنثى أو طليقة (divorced).</li>
+                <li><code>{blood_type}</code> فصيلة الدم بشكل إختياري و بالرمز الإنجليزي.</li>
+                <li><code>{is_root}</code> هل هذا الفرد هو جدّ العائلة، 1: نعم، 0: لا.</li>
+                <li><code>{tribe_id}</code> رقم الفرد الذي يمثّل جدّ العائلة (إن وُجد).</li>
+                <li><code>{created_at}</code> تاريخ و وقت إنشاء المستخدم.</li>
+                <li><code>{updated_at}</code> تاريخ و وقت آخر تحديث لهذا السجل.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
                 <h4 class="text-muted">إضافة فرد (أفراد) إلى الدائرة</h4>
-                POST circles/{id}/members
 
-                <h4 class="text-muted">ترك دائرة</h4>
-                GET circles/{id}/leave
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ إضافة أفراد إلى دائرةٍ من الدوائر التي يُعتبر ضمن أفرادها، و ذلك من خلال إرسال طلب <code>POST</code> إلى الرابط التالي مضمّناً مصفوفة تحوي الأفراد أو الفرد المُراد إضافته:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles/{id}/members</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) (في الرابط) رقم أو معرّف الدائرة.</li>
+                <li><code>{members}</code> (مطلوب) (في الرؤوس) أفراد الدائرة المُراد إضافتهم، يكونون على هيئة مصفوفة مثلاً: <code>[1,4]</code>.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>201</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">201</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Members have been added to the circle successfully."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الإتمام العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">ترك (الخروج من) دائرة</h4>
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يترك (أو يخرج) من دائرة حسب رغبته من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles/{id}/leave</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">عرض مناسبات الدائرة</h4>
-                GET circles/{id}/events
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يعرض المناسبات الخاصّة بدائرةٍ من الدوائر التي يُعتبر فرداً فيها و ذلك من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles/{id}/events</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: مصفوفة من المناسبات التابعة للدائرة <code>200</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+{{teenah_api_url}}/circles/{id}/leave
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">عرض إحصائيات الدائرة</h4>
-                GET circles/{id}/stats
+
+                <p class="lead">
+                    الإحصائيات تُعتبر من المميّزات الأساسيّة لتطبيق تينه، هذه الإحصائيات تخصّ كل دائرةٍ من الدوائر، فتُظهر الكثير من المعلومات للمستخدم الذي يطلبها ولكن لابدّ من أن يتواجد في الدائرة المطلوبة، و يقوم بذلك من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles/{id}/stats</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>200</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+{
+    "members_count": "2",
+    "males_count": "2",
+    "females_count": "0",
+    "alive_members_count": "2",
+    "alive_males_count": "2",
+    "alive_females_count": "0",
+    "ages": [
+        {
+            "counts": "2",
+            "ranges": "0-5",
+            "social_medias": [],
+            "updates_count": "0"
+        }
+    ],
+    "educations": [],
+    "education_majors": [],
+    "companies": [
+        {
+            "members_count": "1",
+            "company": null
+        }
+    ],
+    "jobs": [
+        {
+            "title": "Software Developer",
+            "members_count": "1"
+        }
+    ],
+    "event_count": "2",
+    "messages_count": "0",
+    "medias_count": 0,
+    "male_names": [
+        {
+            "name": "حسام",
+            "members_count": "1",
+            "social_medias": [],
+            "updates_count": "0"
+        },
+        {
+            "name": "علي",
+            "members_count": "1",
+            "social_medias": [],
+            "updates_count": "0"
+        }
+    ],
+    "female_names": [],
+    "locations": [
+        {
+            "location": null,
+            "members_count": "2",
+            "social_medias": [],
+            "updates_count": "0"
+        }
+    ]
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{members_count}</code> عدد أفراد الدائرة.</li>
+                <li><code>{males_count}</code> عدد الذكور في الدائرة.</li>
+                <li><code>{females_count}</code> عدد الإناث في الدائرة.</li>
+                <li><code>{alive_members_count}</code> عدد الأفراد الأحياء في الدائرة.</li>
+                <li><code>{alive_males_count}</code> عدد الذكور الأحياء في الدائرة.</li>
+                <li><code>{alive_females_count}</code> عدد الإناث الأحياء في الدائرة.</li>
+                <li><code>{ages}</code> مصفوفة تحوي الفئات العمرية في الدائرة و عدد المُنتسبين إليها.</li>
+                <li><code>{educations}</code> مصفوفة بالمستويات التعليميةّة في الدائرة.</li>
+                <li><code>{education_majors}</code> مصفوفة بالتخصّثات التعليميّة لأفراد الدائرة.</li>
+                <li><code>{companies}</code> مصفوفة بالشركات و عدد العاملين فيها في الدائرة.</li>
+                <li><code>{jobs}</code> مصفوفة من الوظائف التي يعمل بها أفراد الدائرة.</li>
+                <li><code>{event_count}</code> عدد المناسبات للدائرة.</li>
+                <li><code>{messages_count}</code> عدد الرسائل و المحادثات الخاصّة بالدائرة.</li>
+                <li><code>{medias_count}</code> عدد الوسائط المتعدّدة للدائرة.</li>
+                <li><code>{male_names}</code> مصفوفة تحوي أسماء الذكور المتداولة في الدائرة و عدد حامليها.</li>
+                <li><code>{female_names}</code> مصفوفة تحوي أسماء الإناث المتداولة في الدائرة و عدد حامليها.</li>
+                <li><code>{locations}</code> مصفوفة تحوي أماكن تواجد أفراد الدائرى.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">جلب رسائل الدائرة الغير مقروءة</h4>
-                GET circles/{id}/messages
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ جلب آخر الرسائل (أو المحادثات) الغير مقروءة لدائرةٍ ما من خلال إرسال طلب <code>GET</code> إلى الرابط التالي، مع ملاحة أنّ الرسائل الغير مقروءة ستُعتبر مقروءة بمجرّد استدعاء هذا الرابط:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/circles/{id}/messages</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الدائرة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+            <p class="lead">
+                و سيكون ردّ الخادم أحد الردود التالية: إمّا مصفوفة من الرسائل الغير مقروءة (قد تكون مصفوفة فارغة) <code>200</code> أو <code>403</code>:
+            </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+[
+    {
+        "id": "1",
+        "circle_id": "1",
+        "message_id": "1",
+        "member_id": "2",
+        "status": "sent",
+        "created_at": "0000-00-00 00:00:00",
+        "updated_at": "0000-00-00 00:00:00",
+        "message": {
+            "id": "1",
+            "category": "text",
+            "content": "Hello World.",
+            "created_by": "2",
+            "created_at": "0000-00-00 00:00:00",
+            "updated_at": "0000-00-00 00:00:00",
+            "medias": [
+                {
+                    "id": "2",
+                    "message_id": "1",
+                    "media_id": "1",
+                    "created_at": "0000-00-00 00:00:00",
+                    "updated_at": "0000-00-00 00:00:00",
+                    "media": {
+                        "id": "1",
+                        "category": "image",
+                        "taste": null,
+                        "url": "https://teenahapp.s3.amazonaws.com/uAPorkExVOS.png",
+                        "created_by": "1",
+                        "created_at": "2014-01-25 07:50:21",
+                        "updated_at": "2014-01-25 07:50:21"
+                    }
+                }
+            ]
+        }
+    }
+]
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> رقم أو معرّف السجل.</li>
+                <li><code>{circle_id}</code> رقم أو معرّف الادائرة المُرسل إليها.</li>
+                <li><code>{message_id}</code> رقم أو معرّف الرسالة بمحتواها.</li>
+                <li><code>{member_id}</code> رقم أو معرّف الفرد المُرسل إليه.</li>
+                <li><code>{status}</code> حالة الرسالة بالنسبة للمستقبل أو المُرسل، إمّا أن تكون معلّقة <code>pending</code> أو مُرسلة <code>sent</code> أو مقروءة <code>read</code>.</li>
+                <li><code>{created_at}</code> وقت و تاريخ إنشاء السجل.</li>
+                <li><code>{updated_at}</code> وقت و تاريخ آخر تحديث للسجل.</li>
+                <li><code>{message}</code> مصفوفة فرعية تضمّ تفاصيل الرسالة.</li>
+                <li><code>{message.id}</code> رقم أو معرّف الرسالة.</li>
+                <li><code>{message.category}</code> تصنيف الرسالة، إمّا يكون نص <code>text</code> أو يكون تحديث <code>update</code> يأتي من تطبيق تينه.</li>
+                <li><code>{message.created_by}</code> الفرد الذي أنشأ هذه الرسالة.</li>
+                <li><code>{message.medias}</code> مصفوفة تضمّ الوسائط المرتبطة بالرسالة.</li>
+                <li><code>{message.medias.media}</code> مصفوفة فرعيّة تضمّ تفاصيل الوسائط المتعدّدة.</li>
+                <li><code>{message.medias.category}</code> تصنيف الوسائط المتعدّدة، إمّا صورة <code>image</code> أو فيديو <code>video</code> أو صوت <code>sound</code>.</li>
+                <li><code>{message.medias.taste}</code> مذاق عن الوسائط المتعدّدة، مثل الصورة المصغّرة للصورة، أو مقطع بسيط من الفيديو، و هكذا.</li>
+                <li><code>{message.medias.url}</code> رابط الوسائط المتعدّدة.</li>
+                <li><code>{message.medias.created_by}</code> الفرد الذي قام بإنشاء الوسائط المتعدّدة.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
         	</div>
         	
