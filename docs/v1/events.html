@@ -59,41 +59,712 @@
         	
         	<div class="col-lg-9">
         	
-        		<h4 class="text-muted">الدوائر: المناسبات</h4>
+        		<h4 class="text-muted">المناسبات: مفاهيم أساسيّة</h4>
 
                 <p class="lead">
-                    الدوائر في تينه هي المسؤولة عن ربط الأفراد فيما بينهم، يُمكن فهمها كالمجموعة التي تضم فردين أو أكثر، 
+                    يُمكن لدائرةٍ ما إضافة و عرض المناسبات الخاصّة بها، هذه المناسبات يُدعى إليها أفراد الدائرة و كذلك يُمكن دعوة أفراد دائرة أخرى، هذه الصفحة خُصّصت لشرح إضافة المناسبات بالتفصيل:
                 </p>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                POST events
+                <h4 class="text-muted">إضافة مناسبة</h4>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                GET events/{id}
+                <p class="lead">
+                    يُمكن إضافة مناسبة من خلال إرسال طلب <code>POST</code> إلى الرابط التالي:
+                </p>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                PUT events/{id}
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{title}</code> (مطلوب) عنوان المناسبة.</li>
+                <li><code>{start_datetime}</code> (مطلوب) تاريخ بدء المناسبة بالصياغة <code>YYYYY-mm-dd</code>.</li>
+                <li><code>{finish_datetime}</code> (مطلوب) تاريخ انتهاء المناسبة بالصياغة <code>YYYYY-mm-dd</code>.</li>
+                <li><code>{location}</code> (مطلوب) موقع المناسبة.</li>
+                <li><code>{circles}</code> (مطلوب) الدوائر المُراد دعوة أفرادها، توضع أرقام الدوائر داخل مصفوفة، مثلاً: <code>[1,3,5]</code>.</li>
+                <li><code>{latitude}</code> خط العرض للمناسبة، مثال: <code>4.6</code>.</li>
+                <li><code>{longitude}</code> خط الطول للمناسبة، مثال: <code>2.4</code> .</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+                <p class="lead">
+                    و الردّ القادم من الخادم سيكون أحد الردود التالية: إمّا <code>201</code> أو <code>400</code> أو <code>403</code>:
+                </p>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                DELETE events/{id}
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">201</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "The event has been created successfully.",
+    "event_id": 1
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+                <li><code>{event_id}</code> رقم أو معرّف المناسبة التي تمّ إنشاؤها.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                PUT events/{id}/medias
+                <h4 class="text-muted">عرض معلومات مناسبة</h4>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ جلب و عرض معلومات مناسبةٍ ما إذا كان مدعوّاً إليها من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف المناسبة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و سيكون ردّ الخادم أحد الردود التالية إمّا <code>200</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+{
+    "id": "1",
+    "title": "اجتماع العائلة الشهري",
+    "start_datetime": "2014-01-01 13:00:00",
+    "finish_datetime": "2014-01-01 22:00:00",
+    "location": "الرياض",
+    "latitude": null,
+    "longtitude": null,
+    "created_by": "2",
+    "created_at": "2014-02-08 20:18:01",
+    "updated_at": "2014-02-08 20:18:01",
+    "views_count": "2",
+    "likes_count": "0",
+    "comments_count": "0",
+    "creator": {
+        "id": "2",
+        "gender": "male",
+        "name": "حسام",
+        "fullname": null,
+        "nickname": null,
+        "dob": null,
+        "pob": null,
+        "dod": null,
+        "pod": null,
+        "age": "0",
+        "is_alive": "1",
+        "photo": "https://teenahapp.s3.amazonaws.com/uWY14ohesH4Olco.png",
+        "location": null,
+        "mobile": "966553085572",
+        "email": null,
+        "home_phone": null,
+        "work_phone": null,
+        "marital_status": "",
+        "blood_type": null,
+        "is_root": "0",
+        "tribe_id": null,
+        "created_at": "2014-02-02 17:56:34",
+        "updated_at": "2014-02-05 12:07:30",
+        "social_medias": [
+            {
+                "id": "1",
+                "social_media": "Twitter",
+                "account": "hossamzee",
+                "url": "https://twitter.com/hossamzee",
+                "created_at": "2014-02-07 22:29:42",
+                "updated_at": "2014-02-07 22:29:42"
+            }
+        ],
+        "updates_count": "0"
+    },
+    "members": [
+        {
+            "id": "1",
+            "circle_id": "1",
+            "event_id": "1",
+            "member_id": "2",
+            "decision": "notyet",
+            "created_at": "2014-02-08 20:18:01",
+            "updated_at": "2014-02-08 20:18:01",
+            "member": {
+                "id": "2",
+                "gender": "male",
+                "name": "حسام",
+                "fullname": null,
+                "nickname": null,
+                "dob": null,
+                "pob": null,
+                "dod": null,
+                "pod": null,
+                "age": "0",
+                "is_alive": "1",
+                "photo": "https://teenahapp.s3.amazonaws.com/V2Y14ohesH4Olco.png",
+                "location": null,
+                "mobile": "966553085572",
+                "email": null,
+                "home_phone": null,
+                "work_phone": null,
+                "marital_status": "",
+                "blood_type": null,
+                "is_root": "0",
+                "tribe_id": null,
+                "created_at": "2014-02-02 17:56:34",
+                "updated_at": "2014-02-05 12:07:30",
+                "social_medias": [
+                    {
+                        "id": "1",
+                        "social_media": "Twitter",
+                        "account": "hossamzee",
+                        "url": "https://twitter.com/hossamzee",
+                        "created_at": "2014-02-07 22:29:42",
+                        "updated_at": "2014-02-07 22:29:42"
+                    }
+                ],
+                "updates_count": "0"
+            }
+        },
+        {
+            "id": "2",
+            "circle_id": "1",
+            "event_id": "1",
+            "member_id": "3",
+            "decision": "notyet",
+            "created_at": "2014-02-08 20:18:01",
+            "updated_at": "2014-02-08 20:18:01",
+            "member": {
+                "id": "3",
+                "gender": "male",
+                "name": "علي",
+                "fullname": null,
+                "nickname": null,
+                "dob": null,
+                "pob": null,
+                "dod": null,
+                "pod": null,
+                "age": "0",
+                "is_alive": "1",
+                "photo": null,
+                "location": null,
+                "mobile": "966542048525",
+                "email": null,
+                "home_phone": null,
+                "work_phone": null,
+                "marital_status": "single",
+                "blood_type": null,
+                "is_root": "0",
+                "tribe_id": null,
+                "created_at": "2014-02-05 13:13:17",
+                "updated_at": "2014-02-05 13:13:17",
+                "social_medias": [],
+                "updates_count": "0"
+            }
+        }
+    ],
+    "medias": []
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+                <li><code>{event_id}</code> رقم أو معرّف المناسبة التي تمّ إنشاؤها.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">تحديث مناسبة</h4>
+
+                <p class="lead">
+                    يُمكن للفرد الذي أنشأ مناسبةً ما أن يقوم بتحديث المناسبة من خلال تغيير العنوان للمناسبة أو مكانها أو غيرها، و ذلك من خلال إرسال طلب <code>PUT</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">PUT</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) (في الرابط) رقم أو معرّف المناسبة.</li>
+                <li><code>{title}</code> (مطلوب) (في الرؤوس) عنوان المناسبة.</li>
+                <li><code>{start_datetime}</code> (مطلوب) (في الرؤوس) تاريخ بدء المناسبة بالصياغة <code>YYYYY-mm-dd</code>.</li>
+                <li><code>{finish_datetime}</code> (مطلوب) (في الرؤوس) تاريخ انتهاء المناسبة بالصياغة <code>YYYYY-mm-dd</code>.</li>
+                <li><code>{location}</code> (مطلوب) (في الرؤوس) موقع المناسبة.</li>
+                <li><code>{latitude}</code> خط العرض للمناسبة، مثال: <code>4.6</code>.</li>
+                <li><code>{longitude}</code> خط الطول للمناسبة، مثال: <code>2.4</code> .</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و سيكون ردّ الخادم أحد الردود التالية: إمّا <code>204</code> أو <code>400</code> أو <code>403</code> أو <code>404</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">404</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "The event is not found."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>                
+
+                <h4 class="text-muted">حذف مناسبة</h4>
+
+                <p class="lead">
+                    يُمكن للفرد الذي أنشأ مناسبة أن يقوم بحذفها و ذلك من خلال إرسال طلب <code>DELETE</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">DELETE</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف المناسبة.</li>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code> أو <code>404</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">404</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "The event is not found."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">إضافة الوسائط المتعدّدة لمناسبةٍ ما</h4>
+
+                <p class="lead">
+                    
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">PUT</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}/medias</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) (في الرابط) رقم أو معرّف المناسبة.</li>
+                <li><code>{category}</code>  (مطلوب) تصنيف الوسائط المُراد إرسالها، صورة <code>image</code> أو فيديو <code>video</code> أو صوت <code>sound</code>.</li>
+                <li><code>{data}</code> (مطلوب) (في الرؤوس) محتوى الملف المُراد رفعه إلى الخادم بصيغة base64..</li>
+                <li><code>{extension}</code> (مطلوب) امتداد الملف المُراد، بفترض أن يكون من الصياغات: <code>jpg</code>, <code>png</code>, <code>jpeg</code>, <code>gif</code>, <code>mp4</code>, <code>mp3</code>.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">اتّخاذ قرار بشأن مناسبة</h4>
                 PUT events/{id}/decision/{decision}
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
+                <h4 class="text-muted">عرض قرار المستخدم بشأن مناسبة</h4>
                 GET events/{id}/decision
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                GET events/{id}/like
+                <h4 class="text-muted">الإعجاب بمناسبة</h4>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                POST events/{id}/comment
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ إبداء إعجابه بأحد المناسبات التي تمّ دعوته إليها من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
 
-                <h4 class="text-muted">الدوائر: المناسبات</h4>
-                GET events/{event_id}/comments/{comment_id}/like
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}/like</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف المناسبات.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">التعليق على مناسبة</h4>
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يعلّق على أيٍّ من المناسبات التي يمكنه الوصول إليها من خلال إرسال طلب <code>POST</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}/comment</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code>  (مطلوب) رقم أو معرّف المناسبات.</li>
+                <li><code>{comment}</code> (مطلوب) (في الرؤوس) نص التعليق.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">الإعجاب بتعليق على مناسبة</h4>
+
+<p class="lead">
+                    كما يُمكن للمستخدم الحاليّ الإعجاب بتعليق فردٍ من الأفراد على أيٍّ من الوسائط المتعدّدة من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{event_id}/comments/{comment_id}/like</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{event_id}</code> (مطلوب) (في الرابط) رقم أو معرّف المناسبة المُرادة.</li>
+                <li><code>{comment_id}</code> (مطلوب) (في الرابط) رقم أو معرّف التعليق.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
         	</div>
         	
