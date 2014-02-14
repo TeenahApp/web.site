@@ -1,5 +1,5 @@
 
-var teenah_api_url = "http://ec2-54-213-71-178.us-west-2.compute.amazonaws.com/api/public/index.php/api/v1";
+var teenah_api_url = "http://api.teenah-app.com/v1";
 
 $(function(){
 
@@ -14,5 +14,5 @@ $(function(){
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-46290132-1', 'teenahapp.github.io');
+	ga('create', 'UA-46290132-1', 'teenah-app.com');
 	ga('send', 'pageview');
