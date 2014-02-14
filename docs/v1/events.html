@@ -328,7 +328,24 @@
             }
         }
     ],
-    "medias": []
+    "medias": [
+        {
+            "id": "1",
+            "event_id": "1",
+            "media_id": "1",
+            "created_at": "0000-00-00 00:00:00",
+            "updated_at": "0000-00-00 00:00:00",
+            "media": {
+                "id": "1",
+                "category": "image",
+                "taste": null,
+                "url": "https://teenahapp.s3.amazonaws.com/0bwzy5tTrkExVOS.png",
+                "created_by": "1",
+                "created_at": "2014-01-25 07:50:21",
+                "updated_at": "2014-01-25 07:50:21"
+            }
+        }
+    ]
 }
 </pre>
         </td>
@@ -336,8 +353,33 @@
     <tr>
         <td class="rtl" colspan="2">
             <ul>
-                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
-                <li><code>{event_id}</code> رقم أو معرّف المناسبة التي تمّ إنشاؤها.</li>
+                <li><code>{id}</code> رقم أو معرّف المناسبة.</li>
+                <li><code>{title}</code> عنوان المناسبة.</li>
+                <li><code>{start_datetime}</code> تاريخ بدء المناسبة بالصياغة <code>YYYYY-mm-dd</code>.</li>
+                <li><code>{finish_datetime}</code> تاريخ انتهاء المناسبة بالصياغة <code>YYYYY-mm-dd</code>.</li>
+                <li><code>{location}</code> موقع المناسبة.</li>
+                <li><code>{latitude}</code> خط العرض للمناسبة، مثال: <code>4.6</code>.</li>
+                <li><code>{longtitude}</code> خط الطول للمناسبة، مثال: <code>2.4</code>.</li>
+                <li><code>{created_by}</code> رقم أم معرّف الفرد الذي قام بإنشاء هذه المناسبة.</li>
+                <li><code>{created_at}</code>  وقت و تاريخ إنشاء السجل.</li>
+                <li><code>{updated_at}</code> آخر وقت و تاريخ لتحديث السجل.</li>
+                <li><code>{views_count}</code> عدد مرّات مشاهدة هذه المناسبة.</li>
+                <li><code>{likes_count}</code> عدد مرّات الإعجاب بهذه المناسبة.</li>
+                <li><code>{comments_count}</code> عدد التعليقات على هذه المناسبة.</li>
+                <li><code>{creator}</code> مصفوفة فرعيّة تضمّ معلومات الفرد الذي أنشأ هذه المصفوفة.</li>
+                <li><code>{members}</code> مصفوفة فرعيّة تضم الأفراد الذين تمّت دعوتهم إلى هذه المناسبة.</li>
+                <li><code>{members.circle_id}</code> رقم أو معرّف الدائرة التي ينتمي إليها الفرد.</li>
+                <li><code>{members.event_id}</code> رقم أو معرّف المناسبة التي تمّ إنشاؤها.</li>
+                <li><code>{members.member_id}</code> رقم أو معرّف الفرد المدعو.</li>
+                <li><code>{members.decision}</code> قرار الفرد المدعو بالحضور <code>willcome</code> من عدمه <code>apologize</code>.</li>
+                <li><code>{members.member}</code> مصفوفة فرعيّة تضمّ معلومات الفرد المدعو.</li>
+                <li><code>{medias}</code> مصفوفة تضمّ الوسائط المتعدّدة الخاصّة بالمناسبة.</li>
+                <li><code>{medias.media.category}</code> تصنيف الوسائط المتعدّدة، صورة <code>image</code> أو فيديو <code>video</code> أو صوت <code>sound</code>.</li>
+                <li><code>{medias.media.taste}</code> مذاق عن الوسائط المتعدّدة، مثل الصورة المصغّرة للصورة، أو مقطع بسيط من الفيديو، و هكذا.</li>
+                <li><code>{medias.media.url}</code> رابط الوسائط المتعدّدة.</li>
+                <li><code>{medias.media.created_by}</code> رقم أو معرّف الفرد الذي أنشأ الوسائط المتعدّدة.</li>
+                <li><code>{medias.media.created_at}</code> وقت و تاريخ إنشاء الوسائط المتعدّدة.</li>
+                <li><code>{medias.media.updated_at}</code> آخر وقت و تاريخ لتحديث الوسائط المتعدّدة.</li>
             </ul>
         </td>
     </tr>
@@ -574,10 +616,162 @@
 </table>
 
                 <h4 class="text-muted">اتّخاذ قرار بشأن مناسبة</h4>
-                PUT events/{id}/decision/{decision}
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يقرّر ما إذا كان سيحضر مناسبةً ما أو سيعتذر، كل ذلك يتمّ من خلال إرساله طلب <code>PUT</code> إلى الرابط التاليّ:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">PUT</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}/decision/{decision}</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف المناسبة.</li>
+                <li><code>{decision}</code> (مطلوب) قرار الفرد الحاليّ بالحضور <code>willcome</code> أو الإعتذار <code>apologize</code>.</li>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و سيكون ردّ الخادم أحد الردود التالية: إمّا <code>204</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">عرض قرار المستخدم بشأن مناسبة</h4>
-                GET events/{id}/decision
+
+                <p class="lead">
+                    يُمكن للمستخدم أن يعرض قراره الذي اتّخذه بشأن مناسبةٍ ما من خلال إرسال طلب <code></code> إلى الرابط:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/events/{id}/decision</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف المناسبة.</li>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>200</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre>
+{
+    "decision": "willcome"
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{decision}</code> قرار الفرد بالحضور <code>willcome</code>أو الإعتذار <code>apologize</code>.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
                 <h4 class="text-muted">الإعجاب بمناسبة</h4>
 
