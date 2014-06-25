@@ -70,8 +70,8 @@ body, h1, h2, h3, h4, h5, h6 {
 
 .network-name {
 	text-transform: uppercase;
-	font-size: 12px;
-	letter-spacing: 2px;
+	font-size: 14px;
+	/*letter-spacing: 2px;*/
 }
 
 .content-section-a {
