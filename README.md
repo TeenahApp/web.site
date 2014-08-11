@@ -2,4 +2,6 @@ TeenahApp
 =========
 It contains the related pages of TeenahApp project.
 
-IT IS JUST A CASE.
+TODO:
+=========
+1. Fix landing (home) page for mobile devices, specially navigation bar.
