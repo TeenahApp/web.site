@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon" />
+
+    <title>تطبيق تينه - الواجهة البرمجيّة للتطبيق (API)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom Google Web Font -->
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="../../css/landing-page.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+           	   <a class="navbar-brand" href="../../index.html">تطبيق تينه <span class="badge">تجريبي</span></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../about.html">نبذة تعريفيّة</a></li>
+                    <li><a href="#">الواجهة البرمجيّة للتطبيق (API)</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+          <h3>الواجهة البرمجيّة للتطبيق (API)</h3>
+        </div>
+        
+        <div class="row">
+        	
+        	<div class="col-lg-9">
+        	
+        		<h4 class="text-muted">الوسائط المتعدّدة: مفاهيم أساسيّة</h4>
+
+                <p class="lead">
+                    يُتيح تطبيق تينه مشاركة الوسائط المتعدّدة (الصور وَ الفيديو و الصوت) فيما بين الأفراد، كما يُتيح للأفراد الإعجاب بهذه الوسائط و كذلك التعليق عليها، و هذه الصفحة خُصّصت لشرح هذه الوظائف بإسهاب.
+                </p>
+
+                <h4 class="text-muted">الإعجاب بأحد الوسائط المتعدّدة</h4>
+                
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ إبداء إعجابه بأحد الوسائط التي تمّ مشاركتها معه من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/medias/{id}/like</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> (مطلوب) رقم أو معرّف الوسائط المتعدّدة.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">التعليق على أحد الوسائط المتعدّدة</h4>
+
+                <p class="lead">
+                    يُمكن للمستخدم الحاليّ أن يعلّق على أيٍّ من الوسائط المتعدّدة التي يمكنه الوصول إليها من خلال إرسال طلب <code>POST</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/medias/{id}/comment</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code>  (مطلوب) رقم أو معرّف الوسائط المتعدّدة.</li>
+                <li><code>{comment}</code> (مطلوب) (في الرؤوس) نص التعليق.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>400</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Bad request."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <h4 class="text-muted">الإعجاب بتعليق على الوسائط المتعدّدة</h4>
+
+                <p class="lead">
+                    كما يُمكن للمستخدم الحاليّ الإعجاب بتعليق فردٍ من الأفراد على أيٍّ من الوسائط المتعدّدة من خلال إرسال طلب <code>GET</code> إلى الرابط التالي:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td>
+            <pre class="api_url">{{teenah_api_url}}/medias/{media_id}/comments/{comment_id}/like</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{media_id}</code> (مطلوب) (في الرابط) رقم أو معرّف الوسائط المتعدّدة.</li>
+                <li><code>{comment_id}</code> (مطلوب) (في الرابط) رقم أو معرّف التعليق.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+                <p class="lead">
+                    و ردّ الخادم سيكون أحد الردود التالية: إمّا <code>204</code> أو <code>403</code>:
+                </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authroized to use this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{message}</code> رسالة الخطأ العائدة من الخادم.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+        	</div>
+        	
+        	<div class="col-lg-3">
+        		<div class="list-group">
+        			<a href="getting-started.html" class="list-group-item">الشروع في الاستخدام</a>
+        			<a href="users.html" class="list-group-item">المستخدمون</a>
+        			<a href="members.html" class="list-group-item">الأفراد</a>
+        			<a href="circles.html" class="list-group-item">الدوائر</a>
+        			<a href="events.html" class="list-group-item">المناسبات</a>
+        			<a href="#" class="list-group-item active">الوسائط المتعدّدة</a>
+        			<a href="messages.html" class="list-group-item">الرسائل</a>
+        			<a href="social_medias.html" class="list-group-item">الشبكات الاجتماعيّة</a>
+        			<a href="trustees.html" class="list-group-item">الوكلاء</a>
+        			<a href="auto_completes.html" class="list-group-item">الإكمال التلقائي</a>
+        		</div>
+        	</div>
+        	
+        </div>
+        
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="../../index.html">الأولى</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="../../about.html">نبذة تعريفيّة</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#">الواجهة البرمجيّة للتطبيق (API)</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">
+                    تينه - هذا المشروع مُرخّص تحت
+                   <a href="http://opensource.org/licenses/MIT">رخصة MIT</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/jquery-1.10.2.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/teenahapp.js"></script>
+
+</body>
+
+</html>

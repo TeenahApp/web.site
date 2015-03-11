@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon" />
+
+    <title>تطبيق تينه - الواجهة البرمجيّة للتطبيق (API)</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom Google Web Font -->
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="../../css/landing-page.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+           	   <a class="navbar-brand" href="../../index.html">تطبيق تينه <span class="badge">تجريبي</span></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../about.html">نبذة تعريفيّة</a></li>
+                    <li><a href="#">الواجهة البرمجيّة للتطبيق (API)</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+
+        <!-- /.container -->
+    </nav>
+
+    <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+          <h3>الواجهة البرمجيّة للتطبيق (API)</h3>
+        </div>
+        
+        <div class="row">
+        	
+        	<div class="col-lg-9">
+        	
+        		<h4 class="text-muted">المستخدمون: مفاهيم أساسيّة</h4>
+
+        		<p class="lead">
+                    بعد أن تعرّف تينه على التطبيق الذي يستخدم تينه، تبقّى أن يتعرّف تينه على المستخدم الذي يستخدم التطبيق، حتّى يعرف تينه ما هي الموارد التي يُمكن للمستخدم الحاليّ أن يستخدمها، مثلاً، ما هي الدوائر التي يستطيع أن يصل إليها، الأفراد الذين يُمكنه استعراض ملفّاتهم الشخصيّة، و هكذا، و لكي يتم ذلك، لابدّ من فهم آلية تسجيل دخول المستخدم. الآلية كالتالي، يمدّ المستخدم يده لمصافحة الخادم للمرّة الأولى و معه رقم الجوّال كمُدخل، طالباً من الخادم إرسال رسالة نصيّة (SMS) تحوي كلمة مرور مؤقتة، كلمة المرور هذه؛ ستمهّد الطريق للمصافحة الثانيّة التي تتم بين المستخدم و الخادم و التي يحمل فيها المستخدم رقم جوّاله و كذلك كلمة المرور المؤقتة.
+        		</p>
+
+                <table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">المصافحة الأولى: الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td><pre class="api_url">{{teenah_api_url}}/users/token/{mobile}</pre></td>
+    </tr>
+     <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{mobile}</code> رقم الجوّال مبدوءاً بالرقم الدولي وبدون الصفر في بداية الرقم، مثلاً 96655.
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+            <p class="lead">
+                سيقوم الخادم (تينه) بإرسال رسالة نصيّة (SMS) إلى الجوّال مُدخل و ستكون ردود الخادم إمّا <code>204</code> في حال إرسال الرسالة أو <code>403</code> في حال أن رقم الجوّال غير صحيح:
+            </p>
+
+            <table class="table table-bordered api_table">
+                <tr>
+                    <th colspan="2">المصافحة الأولى: الردود</th>
+                </tr>
+                <!-- 204 -->
+                <tr>
+                    <td><span class="label label-info">204</span></td>
+                    <td></td>
+                </tr>
+                <!-- 403 -->
+         <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to access this resource."
+}</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+            </table>
+
+            <h4 class="text-muted">المصافحة الثانية وَ تسجيل الدخول</h4>
+
+            <p class="lead">
+                بعد عملية المصافحة الأولى التي تمّت بين الخادم و المستخدم، يستطيع أن يطلب المستخدم من الخادم تسجيل دخوله من خلال الإرسال <code>POST</code> إلى هذا الرابط:
+            </p>
+
+            <table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td><pre class="api_url">{{teenah_api_url}}/users/login</pre></td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{mobile}</code> (مطلوب) رقم الجوّال مبدوءاً بالرقم الدولي وبدون الصفر في بداية الرقم، مثلاً 96655.
+                </li>
+                <li>
+                    <code>{sms_token}</code> (مطلوب) كلمة المرور المؤقتة المُرسلة إلى الجوّال.
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+            <p class="lead">
+                بعد إرسال المُدخلات إلى الرابط السابق، سيردّ الخادم -بعد تسجيل الدخول- على  المستخدم برموز يتذكر المستخدم من خلالها، هذه الرموز التي ينبغي للمستخدم استخدامها في كل استدعاء لأي وظيفة من وظائف النظام. الردرو ستكون إما <code>200</code> أو <code>400</code> أو <code>403</code> أو <code>404</code>.
+            </p>
+
+            <table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+{
+    "user_token": "$2y$10$d8zl4DaH1.nYJncylUaVf.70UfQm/M55WiFPmoUefKkFhu2n4.uaC",
+    "member_id": 0
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{user_token}</code> هذه الرموز هي التي تحدّد المستخدم الذي سجّل الدخول إلى تطبيق تينه.
+                </li>
+                <li>
+                    <code>{member_id}</code> رقم الفرد المقابل للمستخدم الذي قام بتسجيل الدخول، إن لم يكن هناك مقابل فسيكون الرقم 0.
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Wrong mobile number and/or SMS token."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to access this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">404</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "User cannot be found."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+            <p class="lead">
+                بعد تسجيل الدخول إلى الخاد، ينبغي تمرير الرموز التي قبل قليل إلى رأس بعنوان <code>X-User-Token</code>؛ لكي تتمكن من استدعاء الوظائف الخاصّة بالمستخدم الحاليّ:
+            </p>
+
+            <table class="table table-bordered api_table">
+                <tr>
+                    <th>الرأس</th>
+                    <th>القيمة</th>
+                </tr>
+                <tr>
+                    <td><code>X-User-Token</code></td>
+                    <td><pre>$2y$10$d8zl4DaH1.nYJncylUaVf.70UfQm/M55WiFPmoUefKkFhu2n4.uaC</pre></td>
+                </tr>
+            </table>
+
+            <h4 class="text-muted">ربط المستخدم بالفرد من العائلة</h4>
+
+            <p class="lead">
+                ربّما تعرّفت على تصميم جداول قاعدة البيانات مُسبقاً، و هي أنّ للمستخدمين جدولاً مستقّلاً عن جدول الأفراد، و لهذا وُجدت هذه الوظيفة لربط الاثنين معاً، بعد الإرسال <code>POST</code> إلى الرابط في الأسفل سيتم الربط بين المستخدم و الفرد من خلال الحصول على تفاصيل إضافيّة للفرد، كاسمه و تاريخ ميلاده، و غيرها، ردود الخادم ستكون <code>201</code> وَ <code>400</code> وَ <code>403</code>.
+            </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-warning">POST</span></td>
+        <td><pre class="api_url">{{teenah_api_url}}/users/members</pre></td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{gender}</code> (مطلوب) جنس الفرد القيم الخصّة بهذا الحقل إمّا male أو female.
+                </li>
+                <li>
+                    <code>{name}</code> (مطلوب) اسم الفرد الأوّل، لابدّ أن يكون باللغة العربيّة.
+                </li>
+                <li>
+                    <code>{dob}</code> (مطلوب) تاريخ ميلاد الفرد، يكون بهذه الصياغة YYYY-mm-dd.
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+            <p class="lead">
+                سيرّد الخادم بإنشاء فردٍ جديدٍ و يربطه بالمستخدم الحاليّ إذا كانت البيانات المُدخلة صحيحة، و سيردّ برسائل الخطأ إذا تمّ عكس ذلك.
+            </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الردود</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">201</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Member has been created successfully.",
+    "member_id": 2,
+    "user_id": "2"
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة إتمام العملية بنجاح.
+                </li>
+                <li>
+                    <code>{member_id}</code> رقم أو معرّف الفرد الذي سجّل دخوله.
+                </li>
+                <li>
+                    <code>{user_id}</code> رقم أو معرّف المستخدم الحاليّ.
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">400</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Invalid inputs."
+    -- OR --
+    "message": "The entered name is not within the correct format."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><span class="label label-danger">403</span></td>
+        <td>
+<pre class="api_url">
+{
+    "message": "Not authorized to access this resource."
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li>
+                    <code>{message}</code> رسالة الخطأ التي يتم استقبالها من الخادم.
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+            <h4 class="text-muted">بيان المستخدم (Dashboard)</h4>
+
+            <p class="lead">
+                إذا أردت عرض معلومات المستخدم المسجّل دخول حاليّاً، ما عليك إلاّ استدعاء وظيفة (dashboard) ليتم عرضها كمصفوفة من المعلومات.
+            </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td><pre class="api_url">{{teenah_api_url}}/users/dashboard</pre></td>
+    </tr>
+</table>
+
+        <p class="lead">
+            ثم سيردّ الخادم بتفاصيل المستخدم الحاليّ كالتّالي:
+        </p>
+
+        <table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الرد</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">200</span></td>
+        <td>
+<pre class="api_url">
+{
+    "id": "2",
+    "gender": "male",
+    "name": "حسام",
+    "fullname": null,
+    "nickname": null,
+    "dob": "1989-01-14",
+    "pob": null,
+    "dod": null,
+    "pod": null,
+    "age": "0",
+    "is_alive": "1",
+    "photo": null,
+    "location": null,
+    "mobile": "96655*******",
+    "email": null,
+    "home_phone": null,
+    "work_phone": null,
+    "marital_status": "single",
+    "blood_type": null,
+    "is_root": "0",
+    "tribe_id": null,
+    "created_at": "2014-02-02 17:56:34",
+    "updated_at": "2014-02-02 17:56:34",
+    "social_medias": [],
+    "updates_count": "0",
+    "in_relations": []
+}
+</pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="rtl" colspan="2">
+            <ul>
+                <li><code>{id}</code> رقم أو معرّف المستخدم الحاليّ.</li>
+                <li><code>{gender}</code> جنس الفرد سواءً ذكراً أو أنثى: male أوَ female.</li>
+                <li><code>{name}</code> اسم الفرد المرتبط بالمستخدم.</li>
+                <li><code>{fullname}</code> الاسم الكامل للفرد المرتبط بالمستخدم.</li>
+                <li><code>{nickname}</code> رسالة الخطأ التي يتم استقبالها من الخادم.</li>
+                <li><code>{dob}</code> تاريخ ميلاد الفرد بالصياغة YYYYY-mm-dd.</li>
+                <li><code>{pob}</code> مكان الميلاد للفرد المرتبط بالمستخدم.</li>
+                <li><code>{dod}</code> تاريخ وفاة (لا سمح الله) الفرد بالصياغة YYYYY-mm-dd.</li>
+                <li><code>{pod}</code> مكان الوفاة (لا سمح الله) للفرد المرتبط بالمستخدم.</li>
+                <li><code>{age}</code> عمر الفرد بدءً من الصفر.</li>
+                <li><code>{is_alive}</code> حالة نبض الفرد، حيّ يرزق أو أنّه متوفّى، 1 أو 0.</li>
+                <li><code>{photo}</code> رابط الصورة الشخصيّة للفرد (إن وُجدت).</li>
+                <li><code>{location}</code> مكان تواجد الفرد إن أحبب مشاركته.</li>
+                <li><code>{mobile}</code> رقم جوّال الفرد المرتبط بالمستخدم.</li>
+                <li><code>{email}</code> بريد الفرد الإلكترونيّ.</li>
+                <li><code>{home_phone}</code> رقم هاتف المنزل للفرد (إن وُجد و إن أحبب مشاركته).</li>
+                <li><code>{work_phone}</code> رقم هاتف العمل للفرد (إن وُجد و إن أحبب مشاركته).</li>
+                <li><code>{marital_status}</code> الحالة الاجتماعيّة للفرد، أعزب (single)، متزوّج (married)، أرملة (widow) للأنثى أو طليقة (divorced).</li>
+                <li><code>{blood_type}</code> فصيلة الدم بشكل إختياري و بالرمز الإنجليزي.</li>
+                <li><code>{is_root}</code> هل هذا الفرد هو جدّ العائلة، 1: نعم، 0: لا.</li>
+                <li><code>{tribe_id}</code> رقم الفرد الذي يمثّل جدّ العائلة (إن وُجد).</li>
+                <li><code>{created_at}</code> تاريخ و وقت إنشاء المستخدم.</li>
+                <li><code>{updated_at}</code> تاريخ و وقت آخر تحديث لهذا السجل.</li>
+                <li><code>{social_medias}</code> مصفوفة من الشبكات الاجتماعيّة التي سجّل فيها الفرد.</li>
+                <li><code>{updates_count}</code> عدد التحديثات الغير مقروءة.</li>
+                <li><code>{in_relations}</code> العلاقات الخاصّة بالفرد، قادمة من الخارج إلى الفرد.</li>
+
+            </ul>
+        </td>
+    </tr>
+    </table>
+
+            <h4 class="text-muted">تسجيل الخروج</h4>
+
+            <p class="lead">
+                إذا أراد المستخدم تسجيل الخروج فله ذلك من خلال طلب الرابط في الذي سيأتي تباعاً بفعل <code>GET</code> ليتم بذلك تسجيل و نسيان جلسة المستخدم.
+            </p>
+
+<table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الطلب</th>
+    </tr>
+    <tr>
+        <td><span class="label label-success">GET</span></td>
+        <td><pre class="api_url">{{teenah_api_url}}/users/logout</pre></td>
+    </tr>
+</table>
+
+        <p class="lead">
+            و ردّ الخادم سيكون كالتالي بعد إتمام عملية تسجيل الخروج:
+        </p>
+
+        <table class="table table-bordered api_table">
+    <tr>
+        <th colspan="2">الرد</th>
+    </tr>
+    <tr>
+        <td><span class="label label-info">204</span></td>
+        <td></td>
+    </tr>
+</table>
+
+        	</div>
+        	
+        	<div class="col-lg-3">
+        		<div class="list-group">
+        			<a href="getting-started.html" class="list-group-item">الشروع في الاستخدام</a>
+        			<a href="#" class="list-group-item active">المستخدمون</a>
+        			<a href="members.html" class="list-group-item">الأفراد</a>
+        			<a href="circles.html" class="list-group-item">الدوائر</a>
+        			<a href="events.html" class="list-group-item">المناسبات</a>
+        			<a href="medias.html" class="list-group-item">الوسائط المتعدّدة</a>
+        			<a href="messages.html" class="list-group-item">الرسائل</a>
+        			<a href="social_medias.html" class="list-group-item">الشبكات الاجتماعيّة</a>
+        			<a href="trustees.html" class="list-group-item">الوكلاء</a>
+        			<a href="auto_completes.html" class="list-group-item">الإكمال التلقائي</a>
+        		</div>
+        	</div>
+        	
+        </div>
+        
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="../../index.html">الأولى</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="../../about.html">نبذة تعريفيّة</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="#">الواجهة البرمجيّة للتطبيق (API)</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">
+                    تينه - هذا المشروع مُرخّص تحت
+                   <a href="http://opensource.org/licenses/MIT">رخصة MIT</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/jquery-1.10.2.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/teenahapp.js"></script>
+
+</body>
+
+</html>
